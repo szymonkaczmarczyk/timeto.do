@@ -19,7 +19,6 @@
   --font-sans: var(--font-dm-sans);
 }
 
-/* Włączenie obsługi klasy .dark w Tailwind CSS v4 */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -27,7 +26,7 @@
   --foreground: #090A0F;
   --card-bg: #F9FAFB;
   --card-border: rgba(9, 10, 15, 0.05);
-  --accent: #4F46E5; /* Deep Indigo for light mode */
+  --accent: #4F46E5; 
   --accent-muted: rgba(79, 70, 229, 0.1);
   --accent-glow: rgba(79, 70, 229, 0.15);
   --text-muted: #86868B;
@@ -38,7 +37,7 @@
   --foreground: #FFFFFF;
   --card-bg: #121214;
   --card-border: rgba(255, 255, 255, 0.08);
-  --accent: #818CF8; /* Lighter Indigo for dark mode */
+  --accent: #818CF8; 
   --accent-muted: rgba(129, 140, 248, 0.15);
   --accent-glow: rgba(129, 140, 248, 0.3);
   --text-muted: #86868B;
@@ -46,7 +45,6 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 body {
@@ -55,10 +53,8 @@ body {
   font-family: var(--font-sans), sans-serif;
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -76,7 +72,6 @@ body {
   background: var(--text-muted);
 }
 
-/* Dodatkowe animacje */
 @keyframes pulseGlow {
   0%, 100% {
     opacity: 0.5;
@@ -92,7 +87,6 @@ body {
   animation: pulseGlow 4s infinite ease-in-out;
 }
 
-/* Nieskończona karuzela (Marquee) */
 @keyframes marquee {
   0% {
     transform: translateX(0%);
@@ -112,7 +106,6 @@ body {
   animation-play-state: paused;
 }
 
-/* Aurora Plasma Shifting Keyframes */
 @keyframes aurora-1 {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
@@ -183,7 +176,6 @@ body {
   animation: aurora-4 30s infinite alternate ease-in-out;
 }
 
-/* Custom Range Input styling */
 .custom-range {
   -webkit-appearance: none;
   appearance: none;

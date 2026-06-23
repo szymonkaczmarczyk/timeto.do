@@ -51,7 +51,6 @@ const areas = [
   },
 ];
 
-// Subkomponent karty z efektem Spotlight (śledzeniem myszki)
 function AreaCard({
   title,
   description,
@@ -85,7 +84,6 @@ function AreaCard({
         onMouseMove={handleMouseMove}
         className="p-6 rounded-2xl bg-background border border-card-border hover:border-accent hover:-translate-y-1 hover:shadow-md hover:shadow-accent/5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group min-h-full cursor-pointer"
       >
-        {/* Spotlight Glow Effect */}
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-300 group-hover:opacity-100 hidden md:block z-0"
           style={{
@@ -114,13 +112,11 @@ function AreaCard({
 export default function AboutAndAreas() {
   return (
     <section id="about" className="py-24 md:py-32 bg-card-bg/30 relative overflow-hidden border-t border-b border-card-border">
-      {/* Background decoration */}
       <div className="absolute top-1/2 left-full -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-accent-glow blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
-          {/* Left Column: About Us (O Nas) */}
           <div className="lg:col-span-5 lg:sticky lg:top-32 space-y-8">
             <div className="space-y-4">
               <ScrollReveal variant="blur" delay={0.05} duration={0.6}>
@@ -141,13 +137,11 @@ export default function AboutAndAreas() {
               </p>
             </ScrollReveal>
 
-            {/* Interaktywny Live Dashboard ROI */}
             <ScrollReveal variant="scale" delay={0.25} duration={0.8}>
               <InteractiveDashboard />
             </ScrollReveal>
           </div>
 
-          {/* Right Column: Areas of Action (Obszary Działań) */}
           <div className="lg:col-span-7 space-y-8">
             <div className="space-y-4">
               <ScrollReveal variant="blur" delay={0.05} duration={0.6}>

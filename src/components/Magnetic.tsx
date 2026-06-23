@@ -22,11 +22,9 @@ export default function Magnetic({ children, range = 50 }: MagneticProps) {
     const distanceX = clientX - centerX;
     const distanceY = clientY - centerY;
 
-    // Odległość kursora od środka przycisku
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
     if (distance < range) {
-      // Przyciąganie (fizyka sprężystości)
       setPosition({ x: distanceX * 0.35, y: distanceY * 0.35 });
     } else {
       setPosition({ x: 0, y: 0 });

@@ -40,13 +40,11 @@ const steps = [
 export default function HowWeWork() {
   return (
     <section id="how-it-works" className="py-24 md:py-32 bg-card-bg/20 relative overflow-hidden border-b border-card-border">
-      {/* Glow decorative element */}
       <div className="absolute bottom-1/3 left-full -translate-x-1/2 w-[300px] h-[300px] rounded-full bg-accent-glow/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* Left Column: Sticky Section Header */}
           <div className="lg:col-span-4 lg:sticky lg:top-32 space-y-4">
             <ScrollReveal variant="blur" delay={0.05} duration={0.6}>
               <div className="text-xs font-bold tracking-wider text-accent uppercase">
@@ -65,23 +63,19 @@ export default function HowWeWork() {
             </ScrollReveal>
           </div>
 
-          {/* Right Column: Vertical Timeline Steps */}
           <div className="lg:col-span-8 relative space-y-12">
-            {/* Vertical timeline line */}
             <div className="absolute left-[20px] md:left-[24px] top-4 bottom-4 w-0.5 bg-card-border" />
 
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
                 <div key={index} className="relative flex items-start gap-4 md:gap-6 group">
-                  {/* Step indicator circle */}
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-background border border-card-border flex items-center justify-center z-10 group-hover:border-accent transition-colors duration-300 shadow-sm flex-shrink-0 mt-2">
                     <span className="text-xs md:text-sm font-bold text-accent">
                       0{index + 1}
                     </span>
                   </div>
 
-                  {/* Card content */}
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}

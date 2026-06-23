@@ -61,7 +61,6 @@ function FAQItem({
         isOpen ? "bg-card-bg shadow-sm" : "bg-transparent hover:bg-card-bg/50"
       }`}
     >
-      {/* Spotlight shine glow */}
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-300 group-hover:opacity-100 hidden md:block z-0"
         style={{
@@ -120,12 +119,10 @@ export default function FAQ() {
 
   return (
     <section className="py-24 md:py-32 bg-card-bg/10 relative overflow-hidden border-b border-card-border">
-      {/* Decorative background glow */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-accent-glow/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 md:px-8">
         
-        {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
           <ScrollReveal variant="blur" delay={0.05} duration={0.6}>
             <div className="text-xs font-bold tracking-wider text-accent uppercase">
@@ -144,7 +141,6 @@ export default function FAQ() {
           </ScrollReveal>
         </div>
 
-        {/* FAQ Accordion List */}
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <FAQItem

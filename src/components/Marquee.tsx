@@ -13,13 +13,10 @@ const integrations = [
 ];
 
 export default function Marquee() {
-  // Powielamy tablicę 4 razy, by uzyskać optymalną długość paska na szerokich monitorach (4K)
-  // i zachować płynne zapętlenie 50%
   const quadrupleIntegrations = [...integrations, ...integrations, ...integrations, ...integrations];
 
   return (
     <section className="py-10 bg-background border-b border-card-border relative overflow-hidden">
-      {/* Cieniowane krawędzie (wtapianie w tło) */}
       <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
@@ -29,7 +26,6 @@ export default function Marquee() {
         </span>
       </div>
 
-      {/* Marquee Wrapper */}
       <div className="relative w-full overflow-hidden flex items-center py-2">
         <div className="animate-marquee gap-6 flex-nowrap">
           {quadrupleIntegrations.map((item, index) => {

@@ -14,8 +14,28 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Timeto | Agencja Performance Marketingu",
+  metadataBase: new URL('https://timeto.do'),
+  title: {
+    default: "Timeto | Agencja Performance Marketingu",
+    template: "%s | Timeto",
+  },
   description: "Liczą się efekty, nie deklaracje. Jesteśmy agencją performance, która wspiera marki w planowaniu, realizacji i skalowaniu kampanii nastawionych na wynik.",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    siteName: 'Timeto',
+    locale: 'pl_PL',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
@@ -36,7 +56,6 @@ export default function RootLayout({
               (function() {
                 try {
                   var theme = localStorage.getItem('theme');
-                  // Domyślnie używamy jasnego motywu, chyba że użytkownik wyraźnie zapisał ciemny
                   if (theme === 'dark') {
                     document.documentElement.classList.add('dark');
                   } else {
@@ -48,7 +67,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans overflow-x-hidden">
+      <body className="min-h-full flex flex-col font-sans">
         {children}
       </body>
     </html>

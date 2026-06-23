@@ -14,7 +14,6 @@ export default function InteractiveDashboard() {
   useEffect(() => {
     if (!isInView) return;
 
-    // Animowanie wartości startowych przy wejściu w pole widzenia
     let startLeads = 81200;
     let startRoi = 100;
     let startCpl = 25.00;
@@ -50,7 +49,6 @@ export default function InteractiveDashboard() {
       }
     }, 20);
 
-    // Ciągły symulowany ruch "LIVE" po zakończeniu animacji wejściowej
     const liveInterval = setInterval(() => {
       setLeads((prev) => prev + Math.floor(Math.random() * 3) + 1);
       setRoi((prev) => prev + (Math.random() > 0.5 ? 1 : -1));
@@ -70,10 +68,8 @@ export default function InteractiveDashboard() {
 
   return (
     <div ref={ref} className="p-6 rounded-[28px] bg-background border border-card-border shadow-sm space-y-6 relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-accent/5 blur-xl pointer-events-none" />
 
-      {/* Header bar */}
       <div className="flex items-center justify-between border-b border-card-border pb-4">
         <div className="flex items-center gap-2.5">
           <span className="flex h-2 w-2 relative">
@@ -90,10 +86,8 @@ export default function InteractiveDashboard() {
         </div>
       </div>
 
-      {/* Grid of stats */}
       <div className="grid grid-cols-3 gap-4">
         
-        {/* Stat 1: ROI */}
         <div className="space-y-1">
           <span className="text-[9px] font-bold text-text-muted uppercase tracking-wider block">
             Średni ROI
@@ -106,7 +100,6 @@ export default function InteractiveDashboard() {
           </div>
         </div>
 
-        {/* Stat 2: Leads */}
         <div className="space-y-1">
           <span className="text-[9px] font-bold text-text-muted uppercase tracking-wider block">
             Pozyskane Leady
@@ -119,7 +112,6 @@ export default function InteractiveDashboard() {
           </div>
         </div>
 
-        {/* Stat 3: CPL */}
         <div className="space-y-1">
           <span className="text-[9px] font-bold text-text-muted uppercase tracking-wider block">
             Koszt Leada (CPL)
@@ -134,16 +126,12 @@ export default function InteractiveDashboard() {
 
       </div>
 
-      {/* Live Graph Section */}
       <div className="relative pt-2 h-36 w-full">
-        {/* Draw path svg */}
         <svg viewBox="0 0 300 100" className="w-full h-full overflow-visible">
-          {/* Grid lines */}
           <line x1="0" y1="20" x2="300" y2="20" stroke="var(--card-border)" strokeWidth="0.5" strokeDasharray="3 3" />
           <line x1="0" y1="50" x2="300" y2="50" stroke="var(--card-border)" strokeWidth="0.5" strokeDasharray="3 3" />
           <line x1="0" y1="80" x2="300" y2="80" stroke="var(--card-border)" strokeWidth="0.5" strokeDasharray="3 3" />
 
-          {/* Area under curve */}
           {isInView && (
             <motion.path
               initial={{ d: "M 0 100 L 0 100 L 50 100 L 100 100 L 150 100 L 200 100 L 250 100 L 300 100 Z" }}
@@ -154,7 +142,6 @@ export default function InteractiveDashboard() {
             />
           )}
 
-          {/* Main Chart Line */}
           {isInView && (
             <motion.path
               initial={{ pathLength: 0 }}
@@ -168,7 +155,6 @@ export default function InteractiveDashboard() {
             />
           )}
 
-          {/* Glowing dot on tip */}
           {isInView && (
             <motion.circle
               initial={{ cx: 0, cy: 85, opacity: 0 }}
@@ -180,7 +166,6 @@ export default function InteractiveDashboard() {
             />
           )}
 
-          {/* Gradients */}
           <defs>
             <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="var(--accent)" />
@@ -189,7 +174,6 @@ export default function InteractiveDashboard() {
           </defs>
         </svg>
 
-        {/* Dynamic Graph Indicator overlay */}
         <div className="absolute top-2 right-2 text-[9px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-md flex items-center gap-1">
           Trend wzrostowy +35%
         </div>

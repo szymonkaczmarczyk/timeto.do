@@ -127,7 +127,6 @@ export default function ContactForm() {
     if (!name || !email) return;
 
     setIsSubmitting(true);
-    // Symulacja wysyłania briefu
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSent(true);
@@ -145,12 +144,10 @@ export default function ContactForm() {
 
   return (
     <section id="contact" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-accent-glow/5 blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
-        {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
           <ScrollReveal variant="blur" delay={0.05} duration={0.6}>
             <div className="text-xs font-bold tracking-wider text-accent uppercase">
@@ -171,7 +168,6 @@ export default function ContactForm() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-stretch">
           
-          {/* Left Column: Brief Wizard */}
           <motion.div
             initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -179,7 +175,6 @@ export default function ContactForm() {
             transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 p-6 md:p-10 rounded-[32px] bg-card-bg border border-card-border shadow-sm min-h-[540px] lg:h-full flex flex-col justify-between relative"
           >
-            {/* Progress bar */}
             <div className="w-full mb-6">
               <div className="flex justify-between items-center text-xs font-bold text-text-muted uppercase tracking-wider mb-2">
                 <span>Krok {step} z 3</span>
@@ -194,7 +189,6 @@ export default function ContactForm() {
               </div>
             </div>
 
-            {/* Wizard steps content */}
             <form onSubmit={handleSubmit} className="flex-grow flex flex-col justify-center py-2 w-full">
               <AnimatePresence mode="wait">
                 {step === 1 && (
@@ -386,7 +380,6 @@ export default function ContactForm() {
               </AnimatePresence>
             </form>
 
-            {/* Buttons Navigation */}
             <div className="flex items-center justify-between pt-6 border-t border-card-border/50 mt-4 w-full">
               {step > 1 ? (
                 <button
@@ -421,7 +414,6 @@ export default function ContactForm() {
               )}
             </div>
 
-            {/* Success message popup overlay */}
             <AnimatePresence>
               {isSent && (
                 <motion.div
@@ -456,7 +448,6 @@ export default function ContactForm() {
 
           </motion.div>
 
-          {/* Right Column: Direct Contact & Team Cards */}
           <div className="lg:col-span-5 space-y-8">
             <ScrollReveal variant="blur" delay={0.05} duration={0.6}>
               <h3 className="text-xl md:text-2xl font-bold text-foreground font-heading mb-2">
@@ -464,10 +455,8 @@ export default function ContactForm() {
               </h3>
             </ScrollReveal>
 
-            {/* Team Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
               
-              {/* Card 1: Jarek */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -503,7 +492,6 @@ export default function ContactForm() {
                 </div>
               </motion.div>
 
-              {/* Card 2: Filip */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -540,7 +528,6 @@ export default function ContactForm() {
               </motion.div>
             </div>
 
-            {/* Address Details */}
             <div className="pt-4 space-y-4">
               <h4 className="text-xs font-bold text-text-muted uppercase tracking-wider">
                 Dane firmowe:
@@ -561,7 +548,6 @@ export default function ContactForm() {
 
         </div>
 
-        {/* Footer Area */}
         <div className="mt-24 pt-8 border-t border-card-border/60 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted font-sans">
           <div>
             © {new Date().getFullYear()} Timeto.do. Wszelkie prawa zastrzeżone.

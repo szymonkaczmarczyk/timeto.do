@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, TrendingUp, Compass, Zap, Users, ShieldCheck } from "lucide-react";
 import Magnetic from "@/components/Magnetic";
+import TextType from "@/components/TextType";
 
 const benefits = [
   { text: "Szybki start działań", icon: Zap, color: "text-amber-500", bg: "bg-amber-500/10" },
@@ -51,7 +52,6 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-background">
-      {/* Premium Aurora/Plasma shifting background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-[10%] left-[10%] w-[350px] md:w-[650px] h-[350px] md:h-[650px] rounded-full bg-accent/15 dark:bg-accent/20 blur-[120px] animate-aurora-1" />
         <div className="absolute bottom-[10%] right-[5%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full bg-emerald-500/10 dark:bg-emerald-500/15 blur-[110px] animate-aurora-2" />
@@ -59,11 +59,9 @@ export default function Hero() {
         <div className="absolute bottom-[20%] left-[15%] w-[280px] md:w-[550px] h-[280px] md:h-[550px] rounded-full bg-amber-500/5 dark:bg-amber-500/10 blur-[90px] animate-aurora-4" />
       </div>
 
-      {/* Grid Pattern overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(120,119,198,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(120,119,198,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
-        {/* Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -77,18 +75,22 @@ export default function Hero() {
           Agencja Performance Marketingu Nowej Generacji
         </motion.div>
 
-        {/* Heading */}
         <motion.h1
           initial={{ y: 25, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl text-foreground font-heading leading-[1.1]"
+          className="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl text-foreground font-heading leading-[1.1] min-h-[96px] md:min-h-[160px]"
         >
-          Liczą się <span className="bg-gradient-to-r from-accent to-indigo-500 bg-clip-text text-transparent">efekty</span>,
-          <br className="hidden md:inline" /> nie deklaracje.
+          <TextType
+            text="Liczą się efekty, nie deklaracje."
+            typingSpeed={20}
+            loop={false}
+            showCursor={true}
+            cursorCharacter="|"
+            cursorClassName="text-accent font-light"
+          />
         </motion.h1>
 
-        {/* Subtitle */}
         <motion.p
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -99,7 +101,6 @@ export default function Hero() {
           Działamy w oparciu o twarde dane i nowoczesną analitykę.
         </motion.p>
 
-        {/* CTA Buttons z przyciąganiem magnetycznym */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -130,7 +131,6 @@ export default function Hero() {
           </Magnetic>
         </motion.div>
 
-        {/* Benefits Section */}
         <motion.div
           variants={containerVariants}
           initial="hidden"

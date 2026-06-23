@@ -9,7 +9,6 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    // Sprawdzenie motywu, aby dopasować tło i uniknąć migania
     const checkTheme = () => {
       const savedTheme = localStorage.getItem("theme");
       const isDarkClass = document.documentElement.classList.contains("dark");
@@ -18,10 +17,8 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
 
     checkTheme();
 
-    // Ukryj preloader po 2 sekundach
     const timer = setTimeout(() => {
       setIsVisible(false);
-      // Wywołanie onComplete tuż przed końcem zsuwania, by uwidocznić resztę strony
       setTimeout(onComplete, 700);
     }, 2000);
 

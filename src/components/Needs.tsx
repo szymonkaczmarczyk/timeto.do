@@ -43,7 +43,6 @@ const needs = [
   },
 ];
 
-// Subkomponent reprezentujący pojedynczy kafelek akordeonu z efektem Spotlight
 function NeedAccordionItem({
   need,
   index,
@@ -76,7 +75,6 @@ function NeedAccordionItem({
         isOpen ? "bg-card-bg shadow-sm" : "bg-transparent hover:bg-card-bg/50"
       }`}
     >
-      {/* Spotlight shine glow */}
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-300 group-hover:opacity-100 hidden md:block z-0"
         style={{
@@ -147,12 +145,10 @@ export default function Needs() {
 
   return (
     <section id="needs" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Decorative background glow */}
       <div className="absolute top-1/3 left-1/4 -translate-x-1/2 w-[350px] h-[350px] rounded-full bg-accent-glow/5 blur-[100px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 md:px-8">
         
-        {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
           <ScrollReveal variant="blur" delay={0.05} duration={0.6}>
             <div className="text-xs font-bold tracking-wider text-accent uppercase">
@@ -171,7 +167,6 @@ export default function Needs() {
           </ScrollReveal>
         </div>
 
-        {/* Accordion List */}
         <div className="space-y-4">
           {needs.map((need, index) => (
             <NeedAccordionItem
