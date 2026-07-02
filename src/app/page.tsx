@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import HomeClient from '@/components/HomeClient';
 
 export const metadata: Metadata = {
-  title: 'Timeto | Agencja Performance Marketingu — Leady, Konwersje, ROAS',
+  title: 'Timeto | Agencja Performance Marketingu',
   description: 'Liczą się efekty, nie deklaracje. Jesteśmy agencją performance, która wspiera marki w planowaniu, realizacji i skalowaniu kampanii nastawionych na wynik. E-mail, SMS, Display, Push.',
   keywords: [
     'agencja performance',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     'timeto',
   ],
   openGraph: {
-    title: 'Timeto | Agencja Performance Marketingu — Leady, Konwersje, ROAS',
+    title: 'Timeto | Agencja Performance Marketingu',
     description: 'Liczą się efekty, nie deklaracje. Jesteśmy agencją performance, która wspiera marki w planowaniu, realizacji i skalowaniu kampanii nastawionych na wynik.',
     url: 'https://timeto.do',
     siteName: 'Timeto',

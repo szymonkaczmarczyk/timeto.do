@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState, MouseEvent } from "react";
-import { useInView, motion, useMotionValue, useSpring, useMotionTemplate, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { BarChart3, TrendingUp, Users, ShieldCheck, ShoppingBag, PhoneCall, Zap, CreditCard } from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const cases = [
   {
@@ -129,20 +130,18 @@ const gradientMap: Record<string, { from: string; to: string; glow: string }> = 
   "from-fuchsia-500 to-rose-500": { from: "#D946EF", to: "#F43F5E", glow: "rgba(244, 63, 94, 0.25)" },
 };
 
-function Counter({ value, isDecimal = false }: { value: number; isDecimal?: boolean }) {
+function Counter({ value, isDecimal = false, trigger }: { value: number; isDecimal?: boolean; trigger: boolean }) {
   const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-20px" });
 
   useEffect(() => {
-    if (isInView) {
+    if (trigger) {
       let start = 0;
       const end = value;
       if (start === end) return;
 
-      const duration = 1.2;
+      const duration = 0.8;
       const totalMiliseconds = duration * 1000;
-      const intervalTime = 25;
+      const intervalTime = 20;
       const steps = totalMiliseconds / intervalTime;
       const increment = (end - start) / steps;
 
@@ -159,243 +158,205 @@ function Counter({ value, isDecimal = false }: { value: number; isDecimal?: bool
 
       return () => clearInterval(timer);
     }
-  }, [isInView, value]);
+  }, [trigger, value]);
 
-  const formattedCount = isDecimal 
-    ? count.toFixed(1) 
+  const formattedCount = isDecimal
+    ? count.toFixed(1)
     : Math.floor(count).toLocaleString("pl-PL").replace(/,/g, " ");
 
-  return (
-    <span ref={ref} className="tabular-nums">
-      {formattedCount}
-    </span>
-  );
+  return <span className="tabular-nums">{formattedCount}</span>;
 }
 
-function CaseCard({ c, index }: { c: typeof cases[0]; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
+function ParallaxSlide({
+  c,
+  index,
+  scrollYProgress,
+  total,
+}: {
+  c: typeof cases[0];
+  index: number;
+  scrollYProgress: any;
+  total: number;
+}) {
   const Icon = c.icon;
-  const colors = gradientMap[c.gradient] || { from: "#4F46E5", to: "#818CF8", glow: "rgba(79, 70, 229, 0.25)" };
 
-  const isEven = index % 2 === 0;
+  // Calculate local timing ranges
+  const centerPoint = index / (total - 1);
+  const step = 1 / (total - 1);
+  const range = [
+    Math.max(0, centerPoint - step),
+    centerPoint,
+    Math.min(1, centerPoint + step),
+  ];
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const tiltX = useMotionValue(0);
-  const tiltY = useMotionValue(0);
+  // Gentler motion values (subtler translations, no rotateY)
+  const xOffset = useTransform(scrollYProgress, range, [40, 0, -40]);
+  const imageX = useTransform(scrollYProgress, range, [-15, 0, 15]);
+  const textX = useTransform(scrollYProgress, range, [15, 0, -15]);
 
-  const stiffness = 160;
-  const damping = 22;
-  const rotateX = useSpring(tiltX, { stiffness, damping });
-  const rotateY = useSpring(tiltY, { stiffness, damping });
+  // Handle local state counting animation trigger
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const activeTransform = useTransform(scrollYProgress, range, [0, 1, 0]);
 
-  function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    
-    const localX = e.clientX - rect.left;
-    const localY = e.clientY - rect.top;
-    mouseX.set(localX);
-    mouseY.set(localY);
-
-    const cardCenterX = rect.left + rect.width / 2;
-    const cardCenterY = rect.top + rect.height / 2;
-    const percentX = (e.clientX - cardCenterX) / (rect.width / 2);
-    const percentY = (e.clientY - cardCenterY) / (rect.height / 2);
-    
-    tiltX.set(-percentY * 3);
-    tiltY.set(percentX * 3);
-  }
-
-  function handleMouseLeave() {
-    tiltX.set(0);
-    tiltY.set(0);
-  }
-
-  const cardVariants = {
-    hidden: {
-      y: 80,
-      opacity: 0,
-      filter: "blur(6px)",
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      transition: {
-        type: "spring" as const,
-        stiffness: 80,
-        damping: 18,
-        duration: 0.8
+  useEffect(() => {
+    return activeTransform.onChange((val) => {
+      if (val > 0.75 && !shouldAnimate) {
+        setShouldAnimate(true);
       }
-    }
-  };
+    });
+  }, [activeTransform, shouldAnimate]);
 
   return (
-    <motion.div
-      ref={cardRef}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={cardVariants}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-        "--glow-shadow": colors.glow
-      } as any}
-      className={`group relative w-full h-[60vh] min-h-[460px] md:h-[65vh] md:min-h-[520px] rounded-[32px] bg-card-bg border border-card-border p-6 md:p-8 flex flex-col gap-6 md:gap-12 items-center shadow-2xl hover:border-accent/40 transition-[border-color,background-color] duration-500 overflow-hidden ${
-        isEven ? "md:flex-row" : "md:flex-row-reverse"
-      }`}
-    >
+    <div className="w-screen h-full flex-shrink-0 flex items-center justify-center relative overflow-hidden px-4 md:px-12">
+
+      {/* Main card grid */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[32px] opacity-0 transition duration-300 group-hover:opacity-100 hidden md:block z-0"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              400px circle at ${mouseX}px ${mouseY}px,
-              ${colors.glow},
-              transparent 85%
-            )
-          `,
-        }}
-      />
-
-      <div 
-        className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-500 z-0 pointer-events-none"
-        style={{
-          background: `linear-gradient(135deg, ${colors.from}, ${colors.to})`
-        }}
-      />
-
-      <div className="w-full md:w-[45%] aspect-video md:aspect-square lg:aspect-[4/3] overflow-hidden rounded-[24px] relative border border-card-border/50 shrink-0 z-10">
-        <div className="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-background/85 backdrop-blur-md border border-card-border/50 text-[10px] font-bold tracking-wider text-accent font-heading z-10">
-          {c.category}
-        </div>
-        <div className="absolute top-4 right-4 p-2.5 rounded-xl bg-background/85 backdrop-blur-md border border-card-border/50 text-accent z-10 shadow-sm">
-          <Icon size={16} />
-        </div>
-        <img 
-          src={c.image} 
-          alt={c.title} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103" 
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-card-bg/60 to-transparent pointer-events-none" />
-      </div>
-
-      <div className="w-full md:w-[55%] flex flex-col justify-between self-stretch z-10 text-left space-y-6 md:space-y-8 py-2">
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-accent uppercase tracking-wider block">
-              Obszar: {c.category}
-            </span>
-            <span className="text-[10px] font-bold text-text-muted font-mono">
-              {String(index + 1).padStart(2, '0')} / {String(cases.length).padStart(2, '0')}
-            </span>
-          </div>
-          <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-foreground font-heading tracking-tight leading-tight">
-            {c.title}
-          </h3>
-          <p className="text-sm text-text-muted leading-relaxed font-sans font-normal">
-            {c.desc}
-          </p>
-          
-          <div className="flex flex-wrap gap-2 pt-2">
-            {c.tags.map((tag) => (
-              <span 
-                key={tag} 
-                className="px-2.5 py-1 rounded bg-card-border/50 text-[10px] font-bold text-text-muted uppercase tracking-wider font-sans"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="border-t border-card-border/50 pt-6 flex flex-col">
-          <span className="text-[10px] font-bold text-text-muted uppercase mb-1.5 tracking-wider">
-            Główny wynik kampanii:
-          </span>
-          <div className="flex items-baseline">
-            <span className={`text-3xl md:text-4xl lg:text-5xl font-black bg-gradient-to-r ${c.gradient} bg-clip-text text-transparent font-heading leading-none`}>
-              <Counter value={c.statValue} isDecimal={c.isDecimal} />
-            </span>
-            <span className="text-sm font-bold text-text-muted font-sans ml-2">
-              {c.statSuffix}
-            </span>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function CaseCardWrapper({ c, index, total }: { c: typeof cases[0]; index: number; total: number }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 0.35, 1], [1, 1, 0.85]);
-  const opacity = useTransform(scrollYProgress, [0, 0.35, 0.85, 1], [1, 1, 0, 0]);
-  const blurValue = useTransform(scrollYProgress, [0, 0.35, 0.85], [0, 0, 4]);
-  const filter = useMotionTemplate`blur(${blurValue}px)`;
-
-  return (
-    <div 
-      ref={containerRef} 
-      className="relative w-full h-[130vh] last:h-[110vh]"
-    >
-      <motion.div
-        style={{ 
-          scale, 
-          opacity, 
-          filter,
-          zIndex: (index + 1) * 10
-        }}
-        className="sticky top-[125px] md:top-[155px] w-full flex justify-center pointer-events-none"
+        style={{ x: xOffset }}
+        className="w-full max-w-5xl bg-card-bg border border-card-border/60 rounded-[32px] p-6 md:p-8 flex flex-col md:flex-row gap-8 items-center shadow-lg relative z-10 overflow-hidden max-h-[85%]"
       >
-        <div className="pointer-events-auto w-full max-w-5xl px-4 md:px-8">
-          <CaseCard c={c} index={index} />
+        {/* Left Side - Image Container */}
+        <div className="w-full md:w-[45%] aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden relative border border-card-border/50 shrink-0 z-10">
+          <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-background/85 backdrop-blur-md border border-card-border/50 text-[10px] font-bold tracking-wider text-accent font-heading z-20">
+            {c.category}
+          </div>
+          <div className="absolute top-4 right-4 p-2.5 rounded-xl bg-background/85 backdrop-blur-md border border-card-border/50 text-accent z-20 shadow-sm">
+            <Icon size={16} />
+          </div>
+
+          <motion.img
+            style={{ x: imageX, scale: 1.02 }}
+            src={c.image}
+            alt={c.title}
+            className="w-full h-full object-cover transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-card-bg/60 to-transparent pointer-events-none z-10" />
         </div>
+
+        {/* Right Side - Information Content */}
+        <motion.div
+          style={{ x: textX }}
+          className="w-full md:w-[55%] flex flex-col justify-between self-stretch text-left space-y-4 md:space-y-6"
+        >
+          <div className="space-y-3 md:space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-accent uppercase tracking-wider block">
+                Case Study {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="text-[10px] font-bold text-text-muted font-mono">
+                {index + 1} / {total}
+              </span>
+            </div>
+
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-foreground font-heading tracking-tight leading-tight">
+              {c.title}
+            </h3>
+
+            <p className="text-xs md:text-sm text-text-muted leading-relaxed font-sans font-normal">
+              {c.desc}
+            </p>
+
+            <div className="flex flex-wrap gap-2 pt-1">
+              {c.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-1 rounded bg-card-border/50 text-[10px] font-bold text-text-muted uppercase tracking-wider font-sans"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="border-t border-card-border/50 pt-4 md:pt-6 flex flex-col">
+            <span className="text-[10px] font-bold text-text-muted uppercase mb-1 tracking-wider">
+              Główny wynik kampanii:
+            </span>
+            <div className="flex items-baseline">
+              <span className={`text-2xl md:text-3xl lg:text-4xl font-black bg-gradient-to-r ${c.gradient} bg-clip-text text-transparent font-heading leading-none`}>
+                <Counter value={c.statValue} isDecimal={c.isDecimal} trigger={shouldAnimate} />
+              </span>
+              <span className="text-xs md:text-sm font-bold text-text-muted font-sans ml-2">
+                {c.statSuffix}
+              </span>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </div>
   );
 }
 
 export default function CaseStudies() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+  });
+
+  const x = useTransform(scrollYProgress, [0, 1], ["0vw", `-${(cases.length - 1) * 100}vw`]);
+
+  const glowColor = useTransform(
+    scrollYProgress,
+    cases.map((_, i) => i / (cases.length - 1)),
+    cases.map((c) => gradientMap[c.gradient]?.from || "#4F46E5")
+  );
+
   return (
-    <section id="cases" className="py-24 md:py-32 bg-background relative border-b border-card-border">
-      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-accent/3 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] rounded-full bg-indigo-500/3 blur-[120px] pointer-events-none" />
-      
-      <div className="max-w-6xl mx-auto">
-        <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24 px-4 space-y-4">
-          <span className="text-xs font-bold tracking-wider text-accent uppercase">
-            Nasze Sukcesy
-          </span>
-          <h2 className="text-3xl md:text-5xl font-black text-foreground font-heading tracking-tight leading-tight">
-            Zobacz nasze <span className="bg-gradient-to-r from-accent to-indigo-500 bg-clip-text text-transparent">Case Studies</span>
-          </h2>
-          <p className="text-sm md:text-base text-text-muted font-sans leading-relaxed">
-            Poznaj realne wyniki, które dostarczyliśmy dla naszych partnerów. Przewijaj dalej, aby zobaczyć kolejne projekty nakładające się na siebie w stos.
-          </p>
+    <section
+      ref={containerRef}
+      id="cases"
+      className="relative h-[800vh] bg-background"
+    >
+      {/* Sticky Fullscreen Container aligned below the sticky Navbar (80px top offset) */}
+      <div className="sticky top-[80px] h-[calc(100vh-80px)] w-full overflow-hidden flex flex-col justify-center bg-background border-b border-card-border">
+
+        {/* Dynamic Glow Spotlight Blob */}
+        <motion.div
+          style={{ backgroundColor: glowColor }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] rounded-full blur-[140px] opacity-[0.06] dark:opacity-[0.09] pointer-events-none z-0 transition-colors duration-500"
+        />
+
+        {/* Section static title positioned nicely below the navbar */}
+        <div className="absolute top-6 left-0 right-0 max-w-4xl mx-auto text-center px-4 z-20 pointer-events-none">
+          <ScrollReveal variant="blur" delay={0.05} duration={0.6}>
+            <span className="text-[10px] font-bold tracking-wider text-accent uppercase bg-card-bg/60 border border-card-border px-3 py-1 rounded-full">
+              Nasze Sukcesy
+            </span>
+          </ScrollReveal>
+          <ScrollReveal variant="blur" delay={0.1} duration={0.8}>
+            <h2 className="text-lg md:text-2xl font-black text-foreground font-heading tracking-tight mt-2.5">
+              Nasze <span className="bg-gradient-to-r from-accent to-indigo-500 bg-clip-text text-transparent">Case Studies</span> (Przewiń w dół)
+            </h2>
+          </ScrollReveal>
         </div>
 
-        <div className="relative">
+        {/* Horizontal Slides flex container */}
+        <motion.div
+          style={{ x }}
+          className="flex w-[900vw] h-full items-center z-10"
+        >
           {cases.map((c, index) => (
-            <CaseCardWrapper 
-              key={c.id} 
-              c={c} 
-              index={index} 
+            <ParallaxSlide
+              key={c.id}
+              c={c}
+              index={index}
+              scrollYProgress={scrollYProgress}
               total={cases.length}
             />
           ))}
+        </motion.div>
+
+        {/* Progress indicator bottom bar */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-64 h-1 bg-card-border rounded-full z-20 overflow-hidden">
+          <motion.div
+            style={{
+              scaleX: scrollYProgress,
+              transformOrigin: "left",
+            }}
+            className="w-full h-full bg-accent"
+          />
         </div>
+
       </div>
     </section>
   );

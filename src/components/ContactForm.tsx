@@ -110,6 +110,8 @@ export default function ContactForm() {
   };
 
   const handleNextStep = () => {
+    if (step === 1 && selectedGoals.length === 0) return;
+    if (step === 2 && selectedChannels.length === 0) return;
     if (step < 3) setStep(step + 1);
   };
 
@@ -124,7 +126,7 @@ export default function ContactForm() {
       setEmailError(err);
       return;
     }
-    if (!name || !email) return;
+    if (!name || !email || message.trim().length === 0) return;
 
     setIsSubmitting(true);
     setTimeout(() => {
@@ -182,7 +184,7 @@ export default function ContactForm() {
               </div>
               <div className="h-1.5 w-full bg-background rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-accent"
+                  className="h-full bg-emerald-500"
                   animate={{ width: `${(step / 3) * 100}%` }}
                   transition={{ duration: 0.4 }}
                 />
@@ -214,16 +216,16 @@ export default function ContactForm() {
                             key={goal.id}
                             type="button"
                             onClick={() => toggleGoal(goal.id)}
-                            className={`p-5 rounded-2xl text-left border transition-all duration-300 flex flex-col justify-between cursor-pointer min-h-[110px] w-full ${
+                            className={`p-5 rounded-2xl text-left border transition-all duration-300 flex flex-col justify-between cursor-pointer min-h-[110px] w-full relative ${
                               isSelected
                                 ? goal.activeClass
                                 : "bg-background border-card-border text-foreground hover:bg-foreground/5"
                             }`}
                           >
-                            <div className="flex items-start justify-between w-full">
-                              <span className="font-bold text-sm leading-tight">{goal.label}</span>
+                            <div className="w-full">
+                              <span className="font-bold text-sm leading-tight pr-6 block">{goal.label}</span>
                               {isSelected && (
-                                <span className="text-xs ml-2 flex-shrink-0 bg-white/20 dark:bg-black/20 w-5 h-5 rounded-full flex items-center justify-center">
+                                <span className="absolute top-5 right-5 text-xs bg-white/20 dark:bg-black/20 w-5 h-5 rounded-full flex items-center justify-center">
                                   ✓
                                 </span>
                               )}
@@ -356,7 +358,7 @@ export default function ContactForm() {
                           }`}
                         />
                         {emailError && (
-                          <span className="text-[10px] font-semibold text-rose-500 block mt-1 font-sans">
+                          <span className="text-[8.5px] whitespace-nowrap font-semibold text-rose-500 block mt-1 font-sans">
                             {emailError}
                           </span>
                         )}
@@ -397,7 +399,11 @@ export default function ContactForm() {
                 <button
                   type="button"
                   onClick={handleNextStep}
-                  className="px-5 py-2.5 rounded-full bg-foreground text-background font-bold hover:opacity-90 transition-opacity text-sm flex items-center gap-1 cursor-pointer ml-auto"
+                  disabled={
+                    (step === 1 && selectedGoals.length === 0) ||
+                    (step === 2 && selectedChannels.length === 0)
+                  }
+                  className="px-5 py-2.5 rounded-full bg-foreground text-background font-bold hover:opacity-90 transition-opacity text-sm flex items-center gap-1 cursor-pointer ml-auto disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   Dalej <ChevronRight size={16} />
                 </button>
@@ -405,8 +411,8 @@ export default function ContactForm() {
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={isSubmitting || !name || !email || !!emailError}
-                  className="px-6 py-2.5 rounded-full bg-accent text-white dark:text-black font-bold hover:shadow-lg hover:shadow-accent/15 transition-all text-sm flex items-center gap-1.5 cursor-pointer ml-auto disabled:opacity-50"
+                  disabled={isSubmitting || !name || !email || !!emailError || message.trim().length === 0}
+                  className="px-6 py-2.5 rounded-full bg-accent text-white dark:text-black font-bold hover:shadow-lg hover:shadow-accent/15 transition-all text-sm flex items-center gap-1.5 cursor-pointer ml-auto disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Wysyłanie..." : "Wyślij Brief"}
                   <Send size={14} />

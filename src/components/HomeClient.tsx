@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import AboutAndAreas from "@/components/AboutAndAreas";
+import RoiCalculator from "@/components/RoiCalculator";
+import TrafficPipeline from "@/components/TrafficPipeline";
 import Needs from "@/components/Needs";
 import CaseStudies from "@/components/CaseStudies";
 import HowWeWork from "@/components/HowWeWork";
@@ -17,8 +19,10 @@ export default function HomeClient() {
       <Hero />
       <Marquee />
       <AboutAndAreas />
+      <RoiCalculator />
       <Needs />
       <CaseStudies />
+      <TrafficPipeline />
       <HowWeWork />
       <FAQ />
       <ContactForm />
