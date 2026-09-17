@@ -44,3 +44,15 @@ next-env.d.ts
 *.md
 !README.md
 !readme.md
+
+# turbo
+.turbo/
+
+# editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# os
+Thumbs.db

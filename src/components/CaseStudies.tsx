@@ -180,7 +180,6 @@ function ParallaxSlide({
 }) {
   const Icon = c.icon;
 
-  // Calculate local timing ranges
   const centerPoint = index / (total - 1);
   const step = 1 / (total - 1);
   const range = [
@@ -189,12 +188,10 @@ function ParallaxSlide({
     Math.min(1, centerPoint + step),
   ];
 
-  // Gentler motion values (subtler translations, no rotateY)
   const xOffset = useTransform(scrollYProgress, range, [40, 0, -40]);
   const imageX = useTransform(scrollYProgress, range, [-15, 0, 15]);
   const textX = useTransform(scrollYProgress, range, [15, 0, -15]);
 
-  // Handle local state counting animation trigger
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const activeTransform = useTransform(scrollYProgress, range, [0, 1, 0]);
 
@@ -208,13 +205,10 @@ function ParallaxSlide({
 
   return (
     <div className="w-screen h-full flex-shrink-0 flex items-center justify-center relative overflow-hidden px-4 md:px-12">
-
-      {/* Main card grid */}
       <motion.div
         style={{ x: xOffset }}
         className="w-full max-w-5xl bg-card-bg border border-card-border/60 rounded-[32px] p-6 md:p-8 flex flex-col md:flex-row gap-8 items-center shadow-lg relative z-10 overflow-hidden max-h-[85%]"
       >
-        {/* Left Side - Image Container */}
         <div className="w-full md:w-[45%] aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden relative border border-card-border/50 shrink-0 z-10">
           <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-background/85 backdrop-blur-md border border-card-border/50 text-[10px] font-bold tracking-wider text-accent font-heading z-20">
             {c.category}
@@ -232,7 +226,6 @@ function ParallaxSlide({
           <div className="absolute inset-0 bg-gradient-to-t from-card-bg/60 to-transparent pointer-events-none z-10" />
         </div>
 
-        {/* Right Side - Information Content */}
         <motion.div
           style={{ x: textX }}
           className="w-full md:w-[55%] flex flex-col justify-between self-stretch text-left space-y-4 md:space-y-6"
@@ -307,16 +300,12 @@ export default function CaseStudies() {
       id="cases"
       className="relative h-[800vh] bg-background"
     >
-      {/* Sticky Fullscreen Container aligned below the sticky Navbar (80px top offset) */}
       <div className="sticky top-[80px] h-[calc(100vh-80px)] w-full overflow-hidden flex flex-col justify-center bg-background border-b border-card-border">
-
-        {/* Dynamic Glow Spotlight Blob */}
         <motion.div
           style={{ backgroundColor: glowColor }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] rounded-full blur-[140px] opacity-[0.06] dark:opacity-[0.09] pointer-events-none z-0 transition-colors duration-500"
         />
 
-        {/* Section static title positioned nicely below the navbar */}
         <div className="absolute top-6 left-0 right-0 max-w-4xl mx-auto text-center px-4 z-20 pointer-events-none">
           <ScrollReveal variant="blur" delay={0.05} duration={0.6}>
             <span className="text-[10px] font-bold tracking-wider text-accent uppercase bg-card-bg/60 border border-card-border px-3 py-1 rounded-full">
@@ -330,7 +319,6 @@ export default function CaseStudies() {
           </ScrollReveal>
         </div>
 
-        {/* Horizontal Slides flex container */}
         <motion.div
           style={{ x }}
           className="flex w-[900vw] h-full items-center z-10"
@@ -346,7 +334,6 @@ export default function CaseStudies() {
           ))}
         </motion.div>
 
-        {/* Progress indicator bottom bar */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-64 h-1 bg-card-border rounded-full z-20 overflow-hidden">
           <motion.div
             style={{

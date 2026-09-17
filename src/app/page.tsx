@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import HomeClient from '@/components/HomeClient';
 
 export const metadata: Metadata = {
-  title: 'Timeto | Agencja Performance Marketingu',
+  title: 'TimeTo | Agencja Performance Marketingu',
   description: 'Liczą się efekty, nie deklaracje. Jesteśmy agencją performance, która wspiera marki w planowaniu, realizacji i skalowaniu kampanii nastawionych na wynik. E-mail, SMS, Display, Push.',
   keywords: [
     'agencja performance',
@@ -18,10 +18,10 @@ export const metadata: Metadata = {
     'timeto',
   ],
   openGraph: {
-    title: 'Timeto | Agencja Performance Marketingu',
+    title: 'TimeTo | Agencja Performance Marketingu',
     description: 'Liczą się efekty, nie deklaracje. Jesteśmy agencją performance, która wspiera marki w planowaniu, realizacji i skalowaniu kampanii nastawionych na wynik.',
     url: 'https://timeto.do',
-    siteName: 'Timeto',
+    siteName: 'TimeTo',
     locale: 'pl_PL',
     type: 'website',
     images: [
@@ -29,13 +29,13 @@ export const metadata: Metadata = {
         url: 'https://timeto.do/wp-content/uploads/2026/03/TimeToDo.jpg',
         width: 1200,
         height: 630,
-        alt: 'Timeto — Agencja Performance Marketingu',
+        alt: 'TimeTo — Agencja Performance Marketingu',
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Timeto | Agencja Performance Marketingu',
+    title: 'TimeTo | Agencja Performance Marketingu',
     description: 'Liczą się efekty, nie deklaracje. Wspieramy marki w planowaniu, realizacji i skalowaniu kampanii nastawionych na wynik.',
   },
   alternates: {

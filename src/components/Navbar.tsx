@@ -132,10 +132,11 @@ export default function Navbar() {
               className="relative w-44 h-12 flex items-center justify-center focus:outline-none cursor-pointer"
             >
               <Image
-                src="/logo.png"
-                alt="Timeto.do Logo"
+                src="/logos/timeto-logo.png"
+                alt="TimeTo.do Logo"
                 fill
-                className="object-contain object-center dark:invert dark:brightness-200 transition-all duration-300"
+                sizes="(max-width: 768px) 160px, 176px"
+                className="object-contain object-center transition-all duration-300"
                 priority
               />
             </button>

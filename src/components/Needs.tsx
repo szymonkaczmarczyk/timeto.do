@@ -129,7 +129,7 @@ function NeedAccordionItem({
                   {need.description}
                 </p>
                 <div className="inline-flex items-center text-xs font-semibold text-accent gap-1">
-                  Rozwiązanie Timeto.do
+                  Rozwiązanie TimeTo.do
                 </div>
               </div>
             </div>

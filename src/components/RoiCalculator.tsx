@@ -25,7 +25,6 @@ export default function RoiCalculator() {
   const [selectedIndustry, setSelectedIndustry] = useState(industries[0]);
   const [selectedChannels, setSelectedChannels] = useState<string[]>(["email", "sms", "display"]);
 
-  // Dynamic counter animation values
   const [displayLeads, setDisplayLeads] = useState(0);
   const [displayRoi, setDisplayRoi] = useState(0);
   const [displayRevenue, setDisplayRevenue] = useState(0);
@@ -69,7 +68,7 @@ export default function RoiCalculator() {
 
   useEffect(() => {
     let startTimestamp: number | null = null;
-    const duration = 600; // ms
+    const duration = 600;
 
     const startLeads = displayLeads;
     const startRoi = displayRoi;
@@ -228,7 +227,7 @@ export default function RoiCalculator() {
 
             <div className="border-t border-card-border/50 pt-6 text-xs text-text-muted font-sans flex items-start gap-2">
               <CheckCircle2 size={16} className="text-emerald-500 flex-shrink-0 mt-0.5" />
-              <span>Estymacje bazują na rzeczywistych średnich wynikach kampanii prowadzonych przez Timeto. Rzeczywiste wyniki zależą od specyfiki oferty i strony docelowej.</span>
+              <span>Estymacje bazują na rzeczywistych średnich wynikach kampanii prowadzonych przez TimeTo. Rzeczywiste wyniki zależą od specyfiki oferty i strony docelowej.</span>
             </div>
 
           </div>

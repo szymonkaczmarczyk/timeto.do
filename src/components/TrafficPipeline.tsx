@@ -68,8 +68,6 @@ export default function TrafficPipeline() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-accent-glow/5 blur-[130px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-
-        {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
           <div className="lg:col-span-6 space-y-4">
             <ScrollReveal variant="blur" delay={0.05} duration={0.6}>
@@ -79,7 +77,7 @@ export default function TrafficPipeline() {
             </ScrollReveal>
             <ScrollReveal variant="blur" delay={0.1} duration={0.8}>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground font-heading leading-tight">
-                Rurociąg konwersji Timeto
+                Rurociąg konwersji TimeTo
               </h2>
             </ScrollReveal>
           </div>
@@ -92,10 +90,7 @@ export default function TrafficPipeline() {
           </div>
         </div>
 
-        {/* Pipeline Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-
-          {/* Left Side: Channel Cards List */}
           <div className="lg:col-span-4 space-y-4 order-2 lg:order-1">
             <div className="text-xs font-bold text-text-muted uppercase tracking-wider mb-2 block">
               Kanały Wejściowe (Ruch)
@@ -132,18 +127,14 @@ export default function TrafficPipeline() {
             })}
           </div>
 
-          {/* Right Side: Interactive Animated SVG Canvas */}
           <div className="lg:col-span-8 order-1 lg:order-2 bg-background border border-card-border/60 rounded-3xl p-4 md:p-8 flex items-center justify-center min-h-[380px] md:min-h-[420px] relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(128,128,255,0.02),transparent)] pointer-events-none" />
 
             <svg viewBox="0 0 600 360" className="w-full h-full overflow-visible z-10 select-none pointer-events-none">
-
-              {/* Connecting Paths */}
               {channels.map((ch) => {
                 const isHovered = hoveredChannel === ch.id;
                 return (
                   <g key={ch.id}>
-                    {/* Glowing background path */}
                     <path
                       d={ch.pathD}
                       fill="none"
@@ -153,7 +144,6 @@ export default function TrafficPipeline() {
                       className="transition-all duration-300"
                     />
 
-                    {/* Animated flow particle 1 */}
                     <circle r={isHovered ? "5" : "3.5"} fill={ch.particleColor} className="filter drop-shadow-[0_0_6px_var(--accent)]">
                       <animateMotion
                         dur={isHovered ? "1.2s" : ch.duration}
@@ -162,7 +152,6 @@ export default function TrafficPipeline() {
                       />
                     </circle>
 
-                    {/* Animated flow particle 2 (offset) */}
                     <circle r={isHovered ? "4" : "2.5"} fill={ch.particleColor} opacity="0.6" className="filter drop-shadow-[0_0_4px_var(--accent)]">
                       <animateMotion
                         dur={isHovered ? "1.2s" : ch.duration}
@@ -175,7 +164,6 @@ export default function TrafficPipeline() {
                 );
               })}
 
-              {/* Main Core to Outlet Pipeline */}
               <path
                 d="M 300,180 L 540,180"
                 fill="none"
@@ -185,7 +173,6 @@ export default function TrafficPipeline() {
                 className="transition-all duration-300"
               />
 
-              {/* Dynamic Core-to-Outlet Particles */}
               <circle r="5" fill="var(--accent)" className="filter drop-shadow-[0_0_8px_var(--accent)]">
                 <animateMotion
                   dur={hoveredChannel ? "0.8s" : "1.8s"}
@@ -210,7 +197,6 @@ export default function TrafficPipeline() {
                 />
               </circle>
 
-              {/* Node graphics: Left Inputs (Circles with centered icons and non-overlapping labels) */}
               {channels.map((ch) => {
                 const Icon = ch.icon;
                 return (
@@ -245,7 +231,6 @@ export default function TrafficPipeline() {
                 );
               })}
 
-              {/* Central Optimizer Node: Restored Circle with centered text, no icon */}
               <g transform="translate(260, 140)">
                 <circle
                   cx="40"
@@ -270,7 +255,6 @@ export default function TrafficPipeline() {
                 </text>
               </g>
 
-              {/* Right Output Node: Restored Circle with centered text, no icon */}
               <g transform="translate(500, 140)">
                 <circle
                   cx="40"
@@ -294,7 +278,6 @@ export default function TrafficPipeline() {
 
             </svg>
 
-            {/* Labels overlay */}
             <div className="absolute top-4 left-6 text-[10px] font-black tracking-widest text-text-muted uppercase font-heading">
               Wizualizacja Przepływu Ruchu
             </div>

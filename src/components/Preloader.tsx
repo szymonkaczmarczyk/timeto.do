@@ -43,12 +43,11 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
             className="relative w-40 h-40 md:w-60 md:h-60"
           >
             <Image
-              src="/logo.png"
-              alt="Timeto Logo"
+              src="/logos/timeto-logo.png"
+              alt="TimeTo Logo"
               fill
-              className={`object-contain transition-all duration-300 ${
-                isDark ? "dark:invert dark:brightness-200" : ""
-              }`}
+              sizes="(max-width: 768px) 160px, 240px"
+              className="object-contain transition-all duration-300"
               priority
             />
           </motion.div>

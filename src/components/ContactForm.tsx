@@ -542,7 +542,7 @@ export default function ContactForm() {
                 <div className="flex items-start gap-3">
                   <MapPin size={18} className="text-accent mt-0.5 flex-shrink-0" />
                   <span>
-                    Timeto Sp. z o.o.<br />
+                    TimeTo Sp. z o.o.<br />
                     ul. Ksawerego Dunikowskiego 10<br />
                     44-100 Gliwice
                   </span>
@@ -556,7 +556,7 @@ export default function ContactForm() {
 
         <div className="mt-24 pt-8 border-t border-card-border/60 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-muted font-sans">
           <div>
-            © {new Date().getFullYear()} Timeto.do. Wszelkie prawa zastrzeżone.
+            © {new Date().getFullYear()} TimeTo.do. Wszelkie prawa zastrzeżone.
           </div>
           <div className="flex items-center gap-6">
             <a href="#" className="hover:text-accent transition-colors duration-300">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, DM_Sans } from "next/font/google";
 import "./globals.css";
+import { faviconDataUri } from "./favicon-data";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -16,8 +17,8 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://timeto.do'),
   title: {
-    default: "Timeto | Agencja Performance Marketingu",
-    template: "%s | Timeto",
+    default: "TimeTo | Agencja Performance Marketingu",
+    template: "%s | TimeTo",
   },
   description: "Liczą się efekty, nie deklaracje. Jesteśmy agencją performance, która wspiera marki w planowaniu, realizacji i skalowaniu kampanii nastawionych na wynik.",
   robots: {
@@ -32,9 +33,19 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    siteName: 'Timeto',
+    siteName: 'TimeTo',
     locale: 'pl_PL',
     type: 'website',
+  },
+  icons: {
+    icon: [
+      { url: '/icon.png?v=4', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico?v=4', sizes: 'any' },
+    ],
+    shortcut: '/icon.png?v=4',
+    apple: [
+      { url: '/apple-touch-icon.png?v=4', sizes: '180x180', type: 'image/png' },
+    ],
   },
 };
 
@@ -50,6 +61,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="icon" type="image/png" href={faviconDataUri} />
+        <link rel="shortcut icon" href={faviconDataUri} />
         <script
           dangerouslySetInnerHTML={{
             __html: `
