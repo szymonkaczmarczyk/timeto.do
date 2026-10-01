@@ -56,3 +56,6 @@ next-env.d.ts
 
 # os
 Thumbs.db
+
+# R
+.Rhistory
