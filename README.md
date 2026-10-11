@@ -169,7 +169,7 @@ src/
 public/
   logos/              logo TimeTo (kolor, białe, czarne)
   case_*.png          grafiki do case studies
-  jarek.jpg, filip.jpg, office.jpg
+  jarek.jpg, filip.jpg  zdjęcia zespołu w formularzu kontaktowym
 docs/screenshots/     zrzuty ekranu do tego README
 ```
 
@@ -189,5 +189,8 @@ To jest prototyp, więc przed wystawieniem go pod prawdziwy adres trzeba poprawi
   na przykład skopiować numeru telefonu ani adresu.
 - **Sporo efektów dla samych efektów.** Orbita zdjęć, ślad za kursorem, magnetyczne przyciski i „TimeTo core”
   w rurociągu niczego nie mówią klientowi. Warto część z nich wyrzucić.
-- **Drobiazgi w kodzie**: `Preloader.tsx` nigdzie nie jest używany, a Framer Motion zgłasza w konsoli
-  ostrzeżenie o przestarzałym `value.onChange`.
+- **Drobiazg w kodzie**: Framer Motion zgłasza w konsoli ostrzeżenie o przestarzałym `value.onChange`.
+
+## Licencja
+
+Projekt jest dostępny na licencji MIT. Pełna treść w pliku [LICENSE](LICENSE).

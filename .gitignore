@@ -12,6 +12,10 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
 
 # next.js
 /.next/
@@ -23,6 +27,24 @@
 # misc
 .DS_Store
 *.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.keystore
+*.jks
+id_rsa*
+id_ed25519*
+credentials*.json
+service-account*.json
+secrets.*
+*.secret
+.npmrc
+.netrc
+*.log
+* 2
+* 2.*
 
 # debug
 npm-debug.log*
@@ -32,6 +54,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -44,6 +67,35 @@ next-env.d.ts
 *.md
 !README.md
 !readme.md
+
+# ai agents
+AGENTS.md
+CLAUDE.md
+CLAUDE.local.md
+GEMINI.md
+zasady-projektu.md
+.claude/
+.cursor/
+.cursorrules
+.cursorignore
+.windsurf/
+.windsurfrules
+.codex/
+.gemini/
+.aider*
+.continue/
+.cline/
+.clinerules
+.roo/
+.kiro/
+.agents/
+.junie/
+.github/copilot-instructions.md
+.github/instructions/
+.github/prompts/
+.mcp.json
+mcp.json
+.playwright-mcp/
 
 # turbo
 .turbo/
